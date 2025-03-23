@@ -1,0 +1,48 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+    name: mc-on-zeabur
+spec:
+    description: 在 Zeabur 設定 Paper MC 的麥塊伺服器，不必要在設置一台伺服器．
+    icon: https://www.minecraft.net/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/favicon.ico
+    variables:
+        - key: USER_AUTHORIZATION
+          type: STRING
+          name: Discord 使用者授權金鑰
+          description: Discord 使用者的授權金鑰（多個請以,分隔）
+        - key: BOT_TOKEN
+          type: STRING
+          name: Bot Token
+          description: Discord 機器人 API Token
+        - key: COZE_BOT_ID
+          type: STRING
+          name: Coze Bot ID
+          description: Coze 機器人 ID
+        - key: GUILD_ID
+          type: STRING
+          name: Guild ID
+          description: Discord 機器人所在伺服器 ID
+        - key: PUBLIC_DOMAIN
+          type: DOMAIN
+          name: Domain
+          description: Discord 機器人的 Webhook 域名
+    tags:
+        - API
+        - Bot
+        - ChatGPT
+    readme: 在 Zeabur 設定 Paper MC 的麥塊伺服器，不必要在設置一台伺服器．
+    services:
+        - name: coze-discord-proxy
+          icon: https://www.minecraft.net/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/favicon.ico
+          template: PREBUILT
+          spec:
+            source:
+                image: marctv/minecraft-papermc-server:latest
+            ports:
+                - id: mc
+                  port: 25565
+                  type: TCP
+            env:
+                TZ:
+                    default: Asia/Taipei
+          domainKey: PUBLIC_DOMAIN
