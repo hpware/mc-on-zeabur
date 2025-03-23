@@ -8,31 +8,15 @@ spec:
     variables:
         - key: USER_AUTHORIZATION
           type: STRING
-          name: Discord 使用者授權金鑰
-          description: Discord 使用者的授權金鑰（多個請以,分隔）
-        - key: BOT_TOKEN
-          type: STRING
-          name: Bot Token
-          description: Discord 機器人 API Token
-        - key: COZE_BOT_ID
-          type: STRING
-          name: Coze Bot ID
-          description: Coze 機器人 ID
-        - key: GUILD_ID
-          type: STRING
-          name: Guild ID
-          description: Discord 機器人所在伺服器 ID
-        - key: PUBLIC_DOMAIN
-          type: DOMAIN
-          name: Domain
-          description: Discord 機器人的 Webhook 域名
     tags:
-        - API
-        - Bot
-        - ChatGPT
+        - Minecraft
+        - PaperMC
+    volumes:
+        - id: data
+          dir: /data
     readme: 在 Zeabur 設定 Paper MC 的麥塊伺服器，不必要在設置一台伺服器．
     services:
-        - name: coze-discord-proxy
+        - name: paper-mc
           icon: https://www.minecraft.net/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/favicon.ico
           template: PREBUILT
           spec:
@@ -45,4 +29,5 @@ spec:
             env:
                 TZ:
                     default: Asia/Taipei
-          domainKey: PUBLIC_DOMAIN
+                MEMORYSIZE:
+                    default: 1G
